@@ -3,8 +3,6 @@
  * Module dependencies.
  */
 
-console.log('anything?');
-
 var express = require('express'),
     routes =  require('./routes'),
     user = require('./routes/user'),
@@ -29,9 +27,7 @@ app.configure(function(){
   app.set('view engine', 'jade');
   app.use(require('less-middleware')(__dirname + '/public'));
   app.use(express.static(path.join(__dirname, 'public'), { maxAge: clientCacheLimit } ));
-  app.use(express.errorHandler());
-
-  app.use(express.favicon(__dirname + ' /static/images/favicon.ico '));
+  app.use(express.favicon(path.join(__dirname, 'public', 'images', 'favicon.ico')));
   app.use(express.logger('dev'));
   app.use(express.bodyParser());
   app.use(express.methodOverride());
@@ -42,7 +38,6 @@ app.configure(function(){
   app.use(domainStraighter());
 
   app.use(app.router);
-  //app.use(function(){ console.log(arguments); });
 });
 
 app.configure('development', function(){
